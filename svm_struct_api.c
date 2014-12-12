@@ -100,6 +100,38 @@ init_struct_model (SAMPLE sample, STRUCTMODEL *sm,
 }
 
 /** ------------------------------------------------------------------
+ ** @brief Initialize weight vector
+ **
+ ** Initialize weight vector w in the structmodel sm. This is rather a hack
+ ** that is applicable only when there is no initial constraint in
+ ** init_struct_constraints().
+ **/
+
+void
+init_weight_vector (SAMPLE sample, STRUCTMODEL *sm,
+                    STRUCT_LEARN_PARM *sparm, LEARN_PARM *lparm,
+                    KERNEL_PARM *kparm)
+{
+  int i = 0;
+  if (kparm->kernel_type == LINEAR) {
+    mxArray const * w_array = mxGetField(sparm->mex, 0, "weights") ;
+    if (!w_array) {
+      return;
+    }
+    if (!mxIsDouble(w_array)) {
+      mexErrMsgTxt("PARM.WEIGHTS must be double");
+    }
+    if (mxGetNumberOfElements(w_array) != sm->sizePsi) {
+      mexErrMsgTxt("The size of PARMS.WEIGHTS does not match PARMS.DIMENSION");
+    }
+    double * values = mxGetPr(w_array);
+    for (i = 0; i < sm->sizePsi; ++i) {
+      sm->w[i+1] = *(values++);
+    }
+  }
+}
+
+/** ------------------------------------------------------------------
  ** @brief Initialize structred model constraints
  **
  ** Initializes the optimization problem. Typically, you do not need

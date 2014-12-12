@@ -128,6 +128,7 @@ void svm_learn_struct(SAMPLE sample, STRUCT_LEARN_PARM *sparm,
   add_weight_vector_to_linear_model(svmModel);
   sm->svm_model=svmModel;
   sm->w=svmModel->lin_weights; /* short cut to weight vector */
+  init_weight_vector(sample,sm,sparm,lparm,kparm);
 
   /* create a cache of the feature vectors for the correct labels */
   if(USE_FYCACHE) {
@@ -563,6 +564,7 @@ void svm_learn_struct_joint(SAMPLE sample, STRUCT_LEARN_PARM *sparm,
   add_weight_vector_to_linear_model(svmModel);
   sm->svm_model=svmModel;
   sm->w=svmModel->lin_weights; /* short cut to weight vector */
+  init_weight_vector(sample,sm,sparm,lparm,kparm);
 
   /* create a cache of the feature vectors for the correct labels */
   fycache=(SVECTOR **)my_malloc(n*sizeof(SVECTOR *));

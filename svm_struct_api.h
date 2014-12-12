@@ -33,6 +33,9 @@ void        init_struct_model(SAMPLE sample, STRUCTMODEL *sm,
 			      KERNEL_PARM *kparm);
 CONSTSET    init_struct_constraints(SAMPLE sample, STRUCTMODEL *sm, 
 				    STRUCT_LEARN_PARM *sparm);
+void        init_weight_vector(SAMPLE sample, STRUCTMODEL *sm,
+			      STRUCT_LEARN_PARM *sparm, LEARN_PARM *lparm,
+			      KERNEL_PARM *kparm);
 LABEL       find_most_violated_constraint_slackrescaling(PATTERN x, LABEL y, 
 						     STRUCTMODEL *sm, 
 						     STRUCT_LEARN_PARM *sparm);

@@ -34,6 +34,7 @@ function test_svm_struct_learn
   parm.featureFn = @featureCB ;
   parm.dimension = 2 ;
   parm.verbose = 1 ;
+  parm.weights = [-0.5980, 0.4573]; % Initial weights of the model.
   model = svm_struct_learn(' -c 1.0 -o 1 -v 1 ', parm) ;
   w = model.w ;
 
